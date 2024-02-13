@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Chat App</title>
+</head>
+<body>
+    <h1 style="text-align: center; color: blue;">Chat with your PDF 🦜📄</h1>
+    <h3 style="text-align: center; color: grey;">Built by <a href="https://github.com/AIAnytime">AI Anytime with ❤️</a></h3>
+
+    <h2 style="text-align: center; color: red;">Upload your PDF 👇</h2>
+
+<form method="POST" enctype="multipart/form-data" style="text-align: center;">
+    <input type="file" name="file" accept=".pdf" required>
+    <button type="submit">Upload PDF</button>
+</form>
+
+
+    {% if file_details %}
+        <div style="display: flex;">
+            <div style="flex: 1;">
+                <h4 style="color: black;">File details</h4>
+                <p><strong>Filename:</strong> {{ file_details['Filename'] }}</p>
+                <p><strong>File size:</strong> {{ file_details['File size'] }} bytes</p>
+            </div>
+            <div style="flex: 2;">
+                <h4 style="color: black;">File preview</h4>
+                {{ pdf_view | safe }}
+            </div>
+        </div>
+
+        <!-- Chat history -->
+        <div style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; max-height: 300px; overflow-y: scroll;">
+            {% for message in chat_history %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- User input -->
+        <form method="POST" style="margin-top: 10px;">
+            <input type="text" name="user_input" placeholder="Type your message..." style="width: 80%;">
+            <button type="submit">Send</button>
+        </form>
+    {% endif %}
+
+</body>
+</html>
